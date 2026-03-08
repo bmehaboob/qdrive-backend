@@ -1,0 +1,7 @@
+runtime: python
+build:
+  builder: NIXPACKS
+deploy:
+  startCommand: gunicorn app:app
+  healthcheckPath: /health
+  healthcheckTimeout: 10
