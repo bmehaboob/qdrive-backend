@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — QDrive by SIFA Geolabs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0F0F1A;
+      color: #C8C8D0;
+      line-height: 1.7;
+    }
+    header {
+      background: #1a1a2e;
+      border-bottom: 1px solid #2A2A3C;
+      padding: 16px 24px;
+    }
+    .header-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .logo-brand { font-size: 18px; font-weight: 700; color: #fff; }
+    .logo-brand .geo { color: #34A853; }
+    .logo-sep { color: #3A3A4C; font-weight: 300; }
+    .logo-product { font-size: 14px; font-weight: 600; color: #4285F4; }
+    nav a {
+      color: #9E9E9E;
+      text-decoration: none;
+      font-size: 13px;
+      margin-left: 20px;
+    }
+    nav a:hover { color: #4285F4; }
+
+    .content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 60px;
+    }
+    h1 {
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .updated {
+      color: #666;
+      font-size: 13px;
+      margin-bottom: 36px;
+    }
+    h2 {
+      color: #E0E0E0;
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 32px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #2A2A3C;
+    }
+    p, li {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    ul {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+    li { margin-bottom: 6px; }
+    strong { color: #E0E0E0; }
+    a { color: #4285F4; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      background: #1E1E2E;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 13px;
+      color: #34A853;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid #2A2A3C;
+      color: #666;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-brand">SIFA <span class="geo">Geolabs</span></span>
+        <span class="logo-sep">|</span>
+        <span class="logo-product">☁ QDrive</span>
+      </a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="content">
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: March 15, 2026</p>
+
+    <p>QDrive is a free, open-source QGIS plugin developed by <strong>SIFA Geolabs</strong> (<a href="https://sifageolabs.com" target="_blank">sifageolabs.com</a>) that allows users to access their Google Drive files from within the QGIS desktop application. This privacy policy explains what data the plugin accesses, how it is used, and how it is stored.</p>
+
+    <h2>1. Data We Access</h2>
+    <p>When you sign in, QDrive requests access to:</p>
+    <ul>
+      <li><strong>Google Drive files</strong> — to browse, download, upload, sync, rename, star, and delete files on your behalf.</li>
+      <li><strong>Email address</strong> — to display your account identity in the plugin interface.</li>
+    </ul>
+    <p>QDrive accesses <strong>only the files you interact with</strong>. We do not scan, index, or read the contents of files you do not explicitly open, download, or upload through the plugin.</p>
+
+    <h2>2. Data Storage</h2>
+    <ul>
+      <li><strong>OAuth tokens</strong> are stored locally on your computer in the QGIS plugin directory. They are never sent to any third-party server.</li>
+      <li><strong>Cached files</strong> are stored locally in <code>~/.qdrive/cache</code> on your computer. You can clear the cache at any time from the plugin.</li>
+      <li><strong>No data is stored on our servers.</strong> The backend server only processes the OAuth authentication flow and does not store any tokens, files, or user data.</li>
+    </ul>
+
+    <h2>3. Data Sharing</h2>
+    <p>SIFA Geolabs does <strong>not</strong> sell, share, or transfer your data to any third parties. Your Google Drive data stays between you and Google. QDrive acts purely as a client-side bridge.</p>
+
+    <h2>4. Third-Party Services</h2>
+    <ul>
+      <li><strong>Google OAuth 2.0</strong> — for authentication. Governed by <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>.</li>
+      <li><strong>Google Drive API</strong> — for file operations. All API calls are made directly from your computer to Google's servers.</li>
+    </ul>
+
+    <h2>5. Data Retention</h2>
+    <p>OAuth tokens persist until you sign out or revoke access. Cached files persist until you clear the cache or delete them manually. No usage data or analytics are collected.</p>
+
+    <h2>6. Your Rights</h2>
+    <p>You can at any time:</p>
+    <ul>
+      <li><strong>Sign out</strong> from the plugin to clear your local tokens.</li>
+      <li><strong>Revoke access</strong> at <a href="https://myaccount.google.com/permissions" target="_blank">Google Account Permissions</a>.</li>
+      <li><strong>Clear local cache</strong> from the plugin to delete all downloaded files.</li>
+      <li><strong>Uninstall</strong> the plugin entirely to remove all local data.</li>
+    </ul>
+
+    <h2>7. Security</h2>
+    <p>Authentication is handled via Google's OAuth 2.0 protocol. Client secrets are stored securely on our backend server and are never exposed to the plugin or end users. All communication with Google APIs uses HTTPS encryption.</p>
+
+    <h2>8. Children's Privacy</h2>
+    <p>QDrive is not directed at children under 13. We do not knowingly collect data from children.</p>
+
+    <h2>9. Changes to This Policy</h2>
+    <p>We may update this policy from time to time. Changes will be posted on this page with an updated date.</p>
+
+    <h2>10. Contact</h2>
+    <p>For questions about this privacy policy, contact SIFA Geolabs at: <a href="mailto:bmehaboob99@gmail.com">bmehaboob99@gmail.com</a></p>
+    <p>Website: <a href="https://sifageolabs.com" target="_blank">sifageolabs.com</a></p>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 SIFA Geolabs &nbsp;|&nbsp; <a href="/">Home</a> &nbsp;|&nbsp; <a href="/terms">Terms</a> &nbsp;|&nbsp; <a href="https://sifageolabs.com" target="_blank">sifageolabs.com</a></p>
+  </footer>
+</body>
+</html>

@@ -12,7 +12,7 @@ import os
 import json
 import secrets
 
-from flask import Flask, redirect, request, session, url_for, jsonify
+from flask import Flask, redirect, request, session, url_for, jsonify, render_template
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", secrets.token_hex(32))
@@ -38,7 +38,26 @@ def _get_redirect_uri():
 
 
 # ──────────────────────────────────────────────────────────────
-# Routes
+# Public Pages (for Google OAuth consent screen)
+# ──────────────────────────────────────────────────────────────
+
+@app.route("/")
+def home():
+    return render_template("home.html")
+
+
+@app.route("/privacy")
+def privacy():
+    return render_template("privacy.html")
+
+
+@app.route("/terms")
+def terms():
+    return render_template("terms.html")
+
+
+# ──────────────────────────────────────────────────────────────
+# API Routes
 # ──────────────────────────────────────────────────────────────
 
 @app.route("/health")

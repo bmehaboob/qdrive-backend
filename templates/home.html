@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QDrive by SIFA Geolabs — Google Drive Plugin for QGIS</title>
+  <meta name="description" content="QDrive by SIFA Geolabs is a free QGIS plugin that connects your GIS projects directly to Google Drive. Browse, download, upload, and sync your geospatial files seamlessly.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0F0F1A;
+      color: #E0E0E0;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      border-bottom: 1px solid rgba(66, 133, 244, 0.2);
+    }
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-brand {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .logo-brand .geo { color: #34A853; }
+    .logo-divider {
+      width: 1px;
+      height: 20px;
+      background: #3A3A4C;
+    }
+    .logo-product {
+      font-size: 15px;
+      font-weight: 600;
+      color: #4285F4;
+      letter-spacing: 0.5px;
+    }
+    nav a {
+      color: #9E9E9E;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      margin-left: 24px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: #4285F4; }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 60px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+      line-height: 1.2;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, #4285F4, #34A853);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 17px;
+      color: #9E9E9E;
+      max-width: 560px;
+      margin: 0 auto 32px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(52, 168, 83, 0.15);
+      color: #34A853;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(52, 168, 83, 0.3);
+      margin-bottom: 24px;
+    }
+    .sub-badge {
+      display: inline-block;
+      background: rgba(66, 133, 244, 0.1);
+      color: #4285F4;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    /* ── Features ── */
+    .features {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #1E1E2E;
+      border: 1px solid #2A2A3C;
+      border-radius: 12px;
+      padding: 28px 24px;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+    .card:hover {
+      border-color: #4285F4;
+      transform: translateY(-2px);
+    }
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .card h3 {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .card p {
+      color: #9E9E9E;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* ── Permissions ── */
+    .permissions {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+      text-align: center;
+    }
+    .permissions h2 {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .permissions p {
+      color: #9E9E9E;
+      font-size: 14px;
+      max-width: 560px;
+      margin: 0 auto 24px;
+    }
+    .perm-list {
+      list-style: none;
+      text-align: left;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .perm-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid #2A2A3C;
+      font-size: 13px;
+      color: #E0E0E0;
+    }
+    .perm-list li strong {
+      color: #4285F4;
+    }
+
+    /* ── How to Use ── */
+    .how-to-use {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+    .how-to-use h2 {
+      text-align: center;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .how-to-use .subtitle {
+      text-align: center;
+      color: #9E9E9E;
+      font-size: 15px;
+      margin-bottom: 40px;
+    }
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .step-card {
+      display: flex;
+      gap: 20px;
+      background: #1A1A2E;
+      border: 1px solid #2A2A3C;
+      border-radius: 12px;
+      padding: 24px;
+      align-items: flex-start;
+      transition: border-color 0.3s;
+    }
+    .step-card:hover {
+      border-color: #4285F4;
+    }
+    .step-number {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(66, 133, 244, 0.15);
+      color: #4285F4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      border: 1px solid rgba(66, 133, 244, 0.3);
+    }
+    .step-content h3 {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      margin-top: 6px;
+    }
+    .step-content p {
+      color: #9E9E9E;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .step-content strong {
+      color: #E0E0E0;
+    }
+    .step-content code {
+      background: #0F0F1A;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #34A853;
+      border: 1px solid #2A2A3C;
+    }
+
+    /* ── Ecosystem ── */
+    .ecosystem {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+      text-align: center;
+    }
+    .ecosystem h2 {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .ecosystem .subtitle {
+      color: #9E9E9E;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+    .eco-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      text-align: left;
+    }
+    .eco-item {
+      background: #1A1A2E;
+      border: 1px solid #2A2A3C;
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color 0.3s;
+    }
+    .eco-item:hover { border-color: #34A853; }
+    .eco-item .eco-tag {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #34A853;
+      margin-bottom: 6px;
+    }
+    .eco-item h4 {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .eco-item p {
+      color: #888;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .eco-item a { color: #4285F4; text-decoration: none; font-size: 12px; }
+    .eco-item a:hover { text-decoration: underline; }
+    .eco-footer {
+      margin-top: 24px;
+    }
+    .eco-footer a {
+      color: #34A853;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .eco-footer a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      border-top: 1px solid #2A2A3C;
+      color: #666;
+      font-size: 12px;
+    }
+    footer a { color: #4285F4; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-brand">SIFA <span class="geo">Geolabs</span></span>
+        <span class="logo-divider"></span>
+        <span class="logo-product">☁ QDrive</span>
+      </a>
+      <nav>
+        <a href="https://sifageolabs.com" target="_blank">SIFA Geolabs</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="badge">By SIFA Geolabs</div>
+    <h1>Your GIS files, <span>directly from Google Drive</span></h1>
+    <p>QDrive is a free QGIS plugin by SIFA Geolabs that connects your geospatial projects to Google Drive. Browse, download, upload, and sync — without leaving QGIS.</p>
+    <div class="sub-badge">Free & Open Source QGIS Plugin</div>
+  </section>
+
+  <section class="features">
+    <div class="card">
+      <div class="card-icon">📂</div>
+      <h3>Browse & Navigate</h3>
+      <p>Full Google Drive file browser right inside QGIS. Navigate folders, search files, and star your favorites.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⬇️</div>
+      <h3>Download & Open</h3>
+      <p>One-click download of SHP, GeoJSON, GPKG, KML, GeoTIFF, and more — opens directly as a QGIS layer.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⬆️</div>
+      <h3>Upload & Drag-Drop</h3>
+      <p>Upload files to Drive with multi-file selection or drag and drop from Explorer. Shapefile companions upload automatically.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h3>Sync & Autosave</h3>
+      <p>Sync a Drive folder to local cache. Enable autosave to automatically push layer edits back to Drive.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔍</div>
+      <h3>Global Search</h3>
+      <p>Search your entire Google Drive for files — not just the current folder. Find any file instantly.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⭐</div>
+      <h3>Star & Organize</h3>
+      <p>Star important files for quick access. Rename, copy links, and view detailed file properties.</p>
+    </div>
+  </section>
+
+  <section class="how-to-use">
+    <h2>How to Use QDrive</h2>
+    <p class="subtitle">A clean, simple workflow directly inside QGIS</p>
+    
+    <div class="steps-container">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Install &amp; Authenticate</h3>
+          <p>Install the <strong>QDrive</strong> plugin from the QGIS repository. Open the QDrive panel (via the Web menu or toolbar) and click <strong>Login</strong>. A browser window will open asking you to authenticate with your Google account. Once granted, return to QGIS.</p>
+        </div>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Browse Your Drive</h3>
+          <p>Your Google Drive files will load in the panel. Double-click folders to navigate. Use the <strong>Search</strong> bar to find specific files globally, or click the <strong>⭐ Starred</strong> button to filter your favorite datasets.</p>
+        </div>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Download &amp; Open Layers</h3>
+          <p>Select one or more GIS files (e.g., <code>.shp</code>, <code>.gpkg</code>, <code>.geojson</code>, <code>.tif</code>) and click <strong>⬇ Download</strong>. The files are securely cached on your computer and automatically added to your QGIS map canvas as layers.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Upload &amp; Organize</h3>
+          <p>To save local data to Drive, click <strong>⬆ Upload</strong> to select files, or simply <strong>Drag &amp; Drop</strong> them from Windows Explorer directly into the QDrive panel. Companion files (like <code>.shx</code>, <code>.dbf</code> for shapefiles) are detected and uploaded automatically.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h3>Sync &amp; Autosave (Pro feature)</h3>
+          <p>Right-click a folder to <strong>Sync</strong> it locally. If you are editing a Drive-hosted vector layer in QGIS, turn on <strong>Autosave</strong>. Every time you save your edits in QGIS, the changes are silently pushed back to Google Drive in the background.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="permissions">
+    <h2>What QDrive accesses</h2>
+    <p>QDrive requests only the minimum Google permissions it needs to function:</p>
+    <ul class="perm-list">
+      <li><strong>Google Drive — read &amp; write:</strong> Browse your files, download GIS layers, upload files to Drive</li>
+      <li><strong>Email address — read only:</strong> Display your logged-in account identity in the plugin</li>
+    </ul>
+  </section>
+
+  <section class="ecosystem">
+    <h2>The SIFA Geolabs Ecosystem</h2>
+    <p class="subtitle">Building geospatial tools and solutions for GIS professionals</p>
+    <div class="eco-grid">
+      <div class="eco-item">
+        <div class="eco-tag">QGIS Plugin</div>
+        <h4>☁ QDrive</h4>
+        <p>Connect QGIS to Google Drive. Browse, download, upload &amp; sync your GIS files seamlessly.</p>
+      </div>
+      <div class="eco-item">
+        <div class="eco-tag">QGIS Plugin</div>
+        <h4>🔄 BhuSync</h4>
+        <p>Synchronize and manage land record data across geospatial databases.</p>
+      </div>
+      <div class="eco-item">
+        <div class="eco-tag">QGIS Plugin</div>
+        <h4>📐 LPM Generator</h4>
+        <p>Generate Land Parcel Maps (LPM) with automated layouts and annotations.</p>
+      </div>
+      <div class="eco-item">
+        <div class="eco-tag">WebGIS Platform</div>
+        <h4>🌍 SIFAMaps</h4>
+        <p>Web-based GIS platform for mapping, visualization, and spatial analysis.</p>
+        <a href="https://sifamaps.com" target="_blank">sifamaps.com →</a>
+      </div>
+      <div class="eco-item">
+        <div class="eco-tag">Training</div>
+        <h4>🎓 Geospatial Keeda</h4>
+        <p>Professional GIS &amp; remote sensing training for surveyors and geospatial professionals.</p>
+      </div>
+      <div class="eco-item">
+        <div class="eco-tag">Tools</div>
+        <h4>📏 Technical Surveyor</h4>
+        <p>Specialized tools for technical surveyors — field data collection, measurement &amp; calculations.</p>
+      </div>
+    </div>
+    <div class="eco-footer">
+      <a href="https://sifageolabs.com" target="_blank">Visit sifageolabs.com →</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 SIFA Geolabs &nbsp;|&nbsp; <a href="/privacy">Privacy</a> &nbsp;|&nbsp; <a href="/terms">Terms</a> &nbsp;|&nbsp; <a href="https://sifageolabs.com" target="_blank">sifageolabs.com</a></p>
+  </footer>
+</body>
+</html>
